@@ -1,5 +1,3 @@
-# 用法：抓包找到小管家checkNew2Parent的接口, 复制请求表单内"_id"对应的value,输入到程序内即可
-
 import shutil, json, os, requests, time, urllib3, re
 from rich.console import Console
 from rich.table import Column, Table
@@ -225,13 +223,3 @@ class GetHomework:
                 igc += 1
             c += 1
             igc = 1
-
-
-
-# if __name__ == "__main__":
-#     gh = GetHomework()
-#     gh.initUserInfo()
-#     gh.getPage(0)
-#     chooseNum = int(input("choose the homework number: "))
-#     gh.getHomeworkURL(chooseNum)
-#     gh.downloadHomework()
