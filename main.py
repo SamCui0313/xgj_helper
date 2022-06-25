@@ -54,8 +54,8 @@ while not workNum == "q":
             if chooseNumber == "u":
                 pageNum-=1
         chooseNumber = int(chooseNumber)
-        console.print("输入\"1\"获取'作业'类型的答案\n输入\"2\"获取考试类型的答案")
-        type = Prompt.ask("请输入: ", choices=['1', '2'])
+        console.print("输入\"1\"获取'作业'类型的答案")
+        type = Prompt.ask("请输入: ", choices=['1'])
         if type == "1":
             answers = gh.getExamAnswer(int(type),chooseNumber)
             answer = ""
