@@ -199,8 +199,6 @@ class GetHomework:
                     else:
                         c += 1
             return answer
-        elif type == 2:
-            pass
     def downloadHomework(self):
         checkdir = os.path.exists('getHomework')
         if checkdir:
