@@ -67,6 +67,4 @@ while not workNum == "q":
             print()
             print("答案为：%s" % answer)
             chooseNumber="g"
-        elif type == 2:
-            pass
 input("按下回车退出程序")
