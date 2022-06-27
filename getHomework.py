@@ -50,6 +50,7 @@ class GetHomework:
             "Accept-Encoding": "gzip, deflate, br"
         }
         getParent_r = json.loads(requests.get(url=url, headers=self.headers).text)
+        return getParent_r
         table = Table()
         table.add_column("[blue]序号", justify="right", width=12)
         table.add_column("[blue]标题", width=40)
