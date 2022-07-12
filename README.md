@@ -11,15 +11,15 @@
   python3 ./main.py
 ```
 
-# 获取openid
+# 使用说明
+  1. 获取openid：<br>
   通过抓包，找到`getUser`请求表单内`wx-openid`的项，该项的值即为openid
 
-# 使用说明
-  1. 如果作业类型如图所示：<br>
+  2. 如果作业类型如图所示：<br>
   ![type-classify](https://raw.githubusercontent.com/SamCui0313/samcui0313.github.io/master/img/type_classify.png)<br>
   ***那么该项作业类型为'分类'作业***
 
-  2. 如果作业类型如图所示：<br>
+  3. 如果作业类型如图所示：<br>
   ![type-Homework](https://raw.githubusercontent.com/SamCui0313/samcui0313.github.io/master/img/type_Homework.png)<br>
   ***那么该项作业类型为'作业'***
 
