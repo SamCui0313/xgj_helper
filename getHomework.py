@@ -51,22 +51,7 @@ class GetHomework:
         }
         getParent_r = json.loads(requests.get(url=url, headers=self.headers).text)
         return getParent_r
-        table = Table()
-        table.add_column("[blue]序号", justify="right", width=12)
-        table.add_column("[blue]标题", width=40)
-        table.add_column("[blue]发布教师名称", width=13)
-        for i in range(page*10, len(getParent_r['data'])+page*10):
-            text = re.sub("\n", "", getParent_r['data'][i%10]['title'])
-            teacherName = getParent_r['data'][i%10]['creator_wx_name']
-            self._id.append(getParent_r['data'][i%10]['_id'])
-            table.add_row(
-                str(i + 1),
-                text,
-                teacherName
-            )
-        console = Console()
-        console.print(table,justify="center")
-
+        
     def getHomeworkURL(self, type, chooseNumber):
         chooseID = self._id[chooseNumber%10 - 1]
         url = "https://a.welife001.com/applet/notify/checkNew2Parent"
