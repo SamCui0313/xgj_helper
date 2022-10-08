@@ -1,5 +1,4 @@
 import shutil, json, os, requests, time, urllib3, re
-from turtle import home
 from rich.console import Console
 from rich.table import Column, Table
 from rich.progress import track
