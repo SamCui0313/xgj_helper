@@ -1,4 +1,5 @@
 import shutil, json, os, requests, time, urllib3, re
+from turtle import home
 from rich.console import Console
 from rich.table import Column, Table
 from rich.progress import track
@@ -202,10 +203,16 @@ class GetHomework:
 
         for i in track(self.feedback_photos_url,description="Downloading..."):
             for j in i:
-                image_url = "https://img.banjixiaoguanjia.com/" + j
-                image_r = requests.get(image_url)
-                with open(os.getcwd() + "/getHomework/" + self.names[c] + "/" + str(igc) + j[j.find("."):], 'wb') as f:
-                    f.write(image_r.content)
+                file_type = j[j.find("."):]
+                if file_type == ".png" or file_type == ".jpg":
+                    homework_url = "https://img.banjixiaoguanjia.com/"+j
+                elif file_type == ".mp3":
+                    homework_url = "https://record.banjixiaoguanjia.com/"+j
+                else:
+                    homework_url = "https://file.banjixiaoguanjia.com/"+j
+                homework_r = requests.get(homework_url)
+                with open(os.getcwd() + "/getHomework/" + self.names[c] + "/" + str(igc) + file_type , 'wb') as f:
+                    f.write(homework_r.content)
                 igc += 1
             c += 1
             igc = 1
