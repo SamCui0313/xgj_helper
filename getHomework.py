@@ -207,6 +207,8 @@ class GetHomework:
                     homework_url = "https://img.banjixiaoguanjia.com/"+j
                 elif file_type == ".mp3":
                     homework_url = "https://record.banjixiaoguanjia.com/"+j
+                elif file_type == ".mp4":
+                    homework_url = "https://video.banjixiaoguanjia.com/"+j
                 else:
                     homework_url = "https://file.banjixiaoguanjia.com/"+j
                 homework_r = requests.get(homework_url)
