@@ -1,10 +1,13 @@
 import getHomework
 import re
+import sys,io
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt,Confirm
 from rich.text import Text
 from rich.table import Table
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
 gh = getHomework.GetHomework()
 console = Console()
@@ -90,12 +93,26 @@ while not workNum == "q":
         if type == "1":
             answers = gh.getExamAnswer(int(type),chooseNumber)
             answer = ""
-            for i in range(1,len(answers)+1):
-                if i%5 == 0:
-                    answer=answer+answers[i-1]+' '
+            leaveNum = len(answers)
+            i=1
+            c=0
+            while i <= leaveNum:
+                if answers[c] == 'A' or answers[c] == 'B' or answers[c] == 'C' or answers[c] == 'D':
+                    if i%5 == 0:
+                        answer=answer+answers[c]+' '
+                        c+=1
+                        i+=1
+                        continue
+                else:
+                    answer=answer+' '+answers[c]+' ' if not answer[len(answer)-1] == ' ' else answer+answers[c]+' '
+                    c+=1
+                    leaveNum -= i
+                    i=1
                     continue
-                answer=answer+answers[i-1]
+                answer=answer+answers[c]
+                c+=1
+                i+=1
             print()
-            print("答案为：%s" % answer)
+            print(u"答案为：%s" % answer)
             chooseNumber="g"
 input("按下回车退出程序")

@@ -180,8 +180,10 @@ class GetHomework:
                         answer.append(chr(c))
                         c = 65
                         break
-                    else:
+                    elif j["right"] == "n":
                         c += 1
+                    else:
+                        answer.append(j["right"])
             return answer
     def downloadHomework(self):
         checkdir = os.path.exists('getHomework')
