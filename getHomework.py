@@ -81,7 +81,7 @@ class GetHomework:
 
         first_r = json.loads(requests.post(url=url, headers=first_headers, data=json.dumps(first_data)).text)
 
-        for i in first_r['data']['notify']['accepts']:
+        for i in first_r['data']['feedbacks']:
             self.openid.append(i['wx_openid'])
             self.memberid.append(i['member_id'])
 
@@ -174,9 +174,9 @@ class GetHomework:
             # ascii：“A”
             c = 65
             # 查找
-            for i in r["data"]["datika"]["subjects"]:
-                for j in i["detailArrays"]:
-                    if j["rightval"] == "y":
+            for i in r["data"]['notify']["attach"]["subjects"]:
+                for j in i["details"]:
+                    if j["right"] == "y":
                         answer.append(chr(c))
                         c = 65
                         break
