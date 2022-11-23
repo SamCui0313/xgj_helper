@@ -173,17 +173,26 @@ class GetHomework:
             r = json.loads(r)
             # ascii：“A”
             c = 65
+
+            rightVal=[]
+            right = ''
+
             # 查找
             for i in r["data"]['notify']["attach"]["subjects"]:
                 for j in i["details"]:
                     if j["right"] == "y":
-                        answer.append(chr(c))
-                        c = 65
-                        break
+                        rightVal.append(c)
+                        c+=1
                     elif j["right"] == "n":
                         c += 1
                     else:
                         answer.append(j["right"])
+                for i in rightVal:
+                    right += chr(i)
+                answer.append(right)
+                right = ''
+                rightVal=[]
+                c=65
             return answer
     def downloadHomework(self):
         checkdir = os.path.exists('getHomework')

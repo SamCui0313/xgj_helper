@@ -92,27 +92,10 @@ while not workNum == "q":
         type = Prompt.ask("请输入: ", choices=['1'])
         if type == "1":
             answers = gh.getExamAnswer(int(type),chooseNumber)
-            answer = ""
-            leaveNum = len(answers)
-            i=1
-            c=0
-            while i <= leaveNum:
-                if answers[c] == 'A' or answers[c] == 'B' or answers[c] == 'C' or answers[c] == 'D':
-                    if i%5 == 0:
-                        answer=answer+answers[c]+' '
-                        c+=1
-                        i+=1
-                        continue
-                else:
-                    answer=answer+' '+answers[c]+' ' if not answer[len(answer)-1] == ' ' else answer+answers[c]+' '
-                    c+=1
-                    leaveNum -= i
-                    i=1
-                    continue
-                answer=answer+answers[c]
-                c+=1
-                i+=1
             print()
+            answer=''
+            for i in answers:
+                answer+=i+' '
             print(u"答案为：%s" % answer)
             chooseNumber="g"
 input("按下回车退出程序")
