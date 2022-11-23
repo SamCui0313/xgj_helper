@@ -1,6 +1,7 @@
 import getHomework
 import re
 import sys,io
+import config.user as user
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt,Confirm
@@ -98,4 +99,7 @@ while not workNum == "q":
                 answer+=i+' '
             print(u"答案为：%s" % answer)
             chooseNumber="g"
+    if workNum == "3":
+        user.setOpenID("")
+        gh.initUserInfo()
 input("按下回车退出程序")
