@@ -49,8 +49,8 @@ while not workNum == "q":
             if chooseNumber == "u":
                 pageNum-=1
         chooseNumber = int(chooseNumber)
-        console.print("输入\"1\"下载'作业'类型的图片\n输入\"2\"下载分类的图片")
-        type = Prompt.ask("请输入: ",choices=['1','2'])
+        console.print("输入\"1\"下载'作业'类型的图片\n输入\"2\"下载分类的图片\n输入\"3\"下载答题卡中的图片")
+        type = Prompt.ask("请输入: ",choices=['1','2','3'])
         gh.getHomeworkURL(int(type),chooseNumber)
         isDownloading = Confirm.ask("本作业共有" + str(gh.feedback_number) + "人提交,是否开始下载？")
         if isDownloading:
@@ -89,16 +89,15 @@ while not workNum == "q":
             if chooseNumber == "u":
                 pageNum-=1
         chooseNumber = int(chooseNumber)
-        console.print("输入\"1\"获取'作业'类型的答案")
-        type = Prompt.ask("请输入: ", choices=['1'])
-        if type == "1":
-            answers = gh.getExamAnswer(int(type),chooseNumber)
-            print()
-            answer=''
-            for i in answers:
-                answer+=i+' '
-            print(u"答案为：%s" % answer)
-            chooseNumber="g"
+        console.print("输入\"1\"获取'作业1'类型的答案\n输入\"2\"获取'考试'类型的作业")
+        type = Prompt.ask("请输入: ", choices=['1','2'])
+        answers = gh.getExamAnswer(int(type),chooseNumber)
+        print()
+        answer=''
+        for i in answers:
+            answer+=i+' '
+        print(u"答案为：%s" % answer)
+        chooseNumber="g"
     if workNum == "3":
         user.setOpenID("")
         gh.initUserInfo()

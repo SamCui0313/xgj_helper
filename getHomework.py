@@ -100,7 +100,7 @@ class GetHomework:
 
             data = {
                 "extra": 1,
-                "cid": "60f01d613d2f2b3a58111c56",
+                "cid": user.getCid(),
                 "cls_ts": ts,
                 "daka_day": "",
                 "member_id": self.memberid[i],
@@ -135,7 +135,20 @@ class GetHomework:
                     pass
                 userFeedbackUrl=[]
                 self.feedback_number = len(self.feedback_photos_url)
-
+            elif type == 3:
+                userFeedbackUrl=[]
+                try:
+                    r = json.loads(requests.post(url=url,headers=headers,data=json.dumps(data)).text)
+                    for j in r['data']['accepts'][0]['attach']['subjects']:
+                        for k in j['answers']:
+                            if k.find(".") >= 0:
+                                userFeedbackUrl.append(k)
+                    self.names.append(r['data']['membersMap'][self.memberid[i]]['name'])
+                    self.feedback_photos_url.append(userFeedbackUrl)
+                except:
+                    pass
+                userFeedbackUrl=[]
+                self.feedback_number = len(self.feedback_photos_url)
     def getExamAnswer(self,type,chooseNumber):
         if type == 1:
             chooseID = self._id[chooseNumber%10 - 1]
@@ -187,6 +200,56 @@ class GetHomework:
                         c += 1
                     else:
                         answer.append(j["right"])
+                for i in rightVal:
+                    right += chr(i)
+                answer.append(right)
+                right = ''
+                rightVal=[]
+                c=65
+            return answer
+        elif type == 2:
+            chooseID = self._id[chooseNumber % 10 -1]
+            url = "https://a.welife001.com/notify/check2Exam"
+            answer = []
+            ts = int(round(time.time() * 1000))
+
+            headers = {
+                "accept": "*/*",
+                "content-type": "application/json",
+                "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217 MicroMessenger/6.8.0(0x16080000) NetType/WIFI Language/en Branch/Br_trunk MiniProgramEnv/Mac",
+                "content-length": "161",
+                "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuaWQiOiJvV1JrVTBZeEVYM3dZTHREcy1OM002UldycTlJIiwidW5pb25pZCI6Im90Z3pwdno5QTBrQzFJSlVYckdnVjl2bWR1TkUiLCJwbGF0Zm9ybSI6Im1pbmkiLCJleHAiOjE2NzQwMjc5ODY1ODUsImlhdCI6MTY2ODg0Mzk4Nn0.RsQpfMW05kSQ9MFHjmtE9__yzz_QZUDM-XQPlMHTOaE",
+                "imprint": user.getOpenID(),
+                "accept-language": "zh-CN,zh-Hans;q=0.9",
+                "referer": "https://servicewechat.com/wx23d8d7ea22039466/1763/page-frame.html",
+                "accept-encoding": "gzip, deflate, br"
+            }
+            data = {
+                "_id": chooseID,
+                "cid": user.getCid(),
+                "daka_day": "",
+                "teacher_cate": "",
+                "member_id": user.getMemberID(),
+                "cls_ts": ts
+            }
+
+            data = json.dumps(data)
+            r = requests.post(url=url,headers=headers,data=data).text
+            r=json.loads(r)
+
+            c=65
+            rightVal=[]
+            right = ''
+
+            for i in r["notify"]['exam']["subjects"]:
+                for j in i["examsubject"]["detailArrays"]:
+                    if j["rightval"] == "y":
+                        rightVal.append(c)
+                        c+=1
+                    elif j["rightval"] == "n":
+                        c += 1
+                    else:
+                        answer.append(j["rightval"])
                 for i in rightVal:
                     right += chr(i)
                 answer.append(right)
