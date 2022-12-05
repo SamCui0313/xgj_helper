@@ -257,6 +257,48 @@ class GetHomework:
                 rightVal=[]
                 c=65
             return answer
+
+    def getCorrectAnswer(self,chooseNumber):
+        chooseID = self._id[chooseNumber%10 - 1]
+        url = "https://a.welife001.com/applet/notify/checkNew2Parent"
+        answer = []
+        # 请求头
+        headers = {"host": "a.welife001.com",
+                    "accept": "*/*",
+                    "content-type": "application/json",
+                    "referer": "https://servicewechat.com/wx23d8d7ea22039466/1400/page-frame.html",
+                    "imprint": user.getOpenID(),
+                    "content-length": "175",
+                    "if-none-match": "W/\"59e0-/Ml25fzb86GbpZkkIN+IdNfnXT4\"",
+                    "accept-language": "zh-cn",
+                    "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217 MicroMessenger/6.8.0(0x16080000) NetType/WIFI Language/en Branch/Br_trunk MiniProgramEnv/Mac",
+                    "accept-encoding": "gzip, deflate, br"}
+
+        # 输入_id
+        # 表单
+        data = {
+            "extra": 1,
+            "cid": user.getCid(),
+            "cls_ts": -1,
+            "daka_day": "",
+            "member_id": user.getMemberID(),
+            "_id": chooseID,
+            "page": 0,
+            "size": 10,
+            "trial": 0
+        }
+        # 字典转json
+        data = json.dumps(data)
+        r = requests.post(url=url, headers=headers, data=data).text
+        r = json.loads(r)
+        
+        photoAnswers = r['data']['notify']['photo_content']
+        recordAnswers = r['data']['notify']['record_contents']
+        videoAnswers = r['data']['notify']['video_contents']
+        fileAnswers = r['data']['notify']['file_content']
+        self.feedback_photos_url.append(photoAnswers + recordAnswers + videoAnswers + fileAnswers)
+        self.names.append("CorrectAnswer")
+        return self.feedback_photos_url
     def downloadHomework(self):
         checkdir = os.path.exists('getHomework')
         if checkdir:
