@@ -141,7 +141,8 @@ class GetHomework:
                     r = json.loads(requests.post(url=url,headers=headers,data=json.dumps(data)).text)
                     for j in r['data']['accepts'][0]['attach']['subjects']:
                         for k in j['answers']:
-                            if k.find(".") >= 0:
+                            fileType = k[k.find('.'):]
+                            if k.find('.') >= 0 and fileType == ".jpg" or fileType == ".png" or fileType == ".mp3" or fileType == ".mp4":
                                 userFeedbackUrl.append(k)
                     self.names.append(r['data']['membersMap'][self.memberid[i]]['name'])
                     self.feedback_photos_url.append(userFeedbackUrl)
@@ -327,9 +328,12 @@ class GetHomework:
                     homework_url = "https://video.banjixiaoguanjia.com/"+j
                 else:
                     homework_url = "https://file.banjixiaoguanjia.com/"+j
-                homework_r = requests.get(homework_url)
-                with open(os.getcwd() + "/getHomework/" + self.names[c] + "/" + str(igc) + file_type , 'wb') as f:
-                    f.write(homework_r.content)
-                igc += 1
+                try:
+                    homework_r = requests.get(homework_url)
+                    with open(os.getcwd() + "/getHomework/" + self.names[c] + "/" + str(igc) + file_type , 'wb') as f:
+                        f.write(homework_r.content)
+                    igc += 1
+                except:
+                    pass
             c += 1
             igc = 1
