@@ -4,7 +4,7 @@
 支持获取班级小管家答案、下载作业
 # 安装依赖
 ```
-  pip install requirements.txt
+  pip3 install -f requirements.txt
 ```
 # 运行方法
 ```
